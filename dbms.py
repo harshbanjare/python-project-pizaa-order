@@ -1,19 +1,17 @@
+import imp
 import pymysql
-
-HOST = 'technical.timepvp.in'
-PORT = 3306
-USER = 'u2_i4YRrBdoQW'
-PASSWORD = 'MO4HI7.^!Cq^62^n2gL6XPs9'
-DATABASE = 's2_test'
+from dotenv import load_dotenv
+import os
 
 
 class Db:
     def __init__(self):
-        self._host = HOST
-        self._port = PORT
-        self._user = USER
-        self._password = PASSWORD
-        self._database = DATABASE
+        load_dotenv()
+        self._host = os.getenv("DB_HOST")
+        self._port = int(os.getenv("DB_PORT"))
+        self._user = os.getenv("DB_USER")
+        self._password = os.getenv("DB_PASSWORD")
+        self._database = os.getenv("DB_DATABASE")
         self._connection = pymysql.connect(
             host=self._host, port=self._port, user=self._user, password=self._password, database=self._database)
 
