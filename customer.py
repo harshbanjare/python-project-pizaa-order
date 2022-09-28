@@ -21,15 +21,15 @@ class Customer(Frame):
         self.button_frame.pack(ipadx=10, ipady=10)
 
         self.order_pizza_button = Button(
-            self.button_frame, text="Order Pizza", font=("Calibri", 18), command=self)
+            self.button_frame, text="Order Pizza", cursor="hand2", font=("Calibri", 18), command=self)
         self.order_pizza_button.pack(side=LEFT, padx=10, pady=10)
 
         self.track_order_button = Button(
-            self.button_frame, text="Track Order", font=("Calibri", 18), command=self)
+            self.button_frame, text="Track Order", cursor="hand2", font=("Calibri", 18), command=self)
         self.track_order_button.pack(side=LEFT, padx=10, pady=10)
 
         self.back_button = Button(
-            self.button_frame, text="Cancel Order", font=("Calibri", 18), command=self)
+            self.button_frame, text="Cancel Order", cursor="hand2", font=("Calibri", 18), command=self)
         self.back_button.pack(side=LEFT, padx=10, pady=10)
 
 

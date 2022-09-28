@@ -17,20 +17,27 @@ class Merchant(Frame):
             "Calibri", 28), )
         self.subtitle.pack(ipadx=10, ipady=10)
 
-        self.button_frame = Frame(self.parent)
-        self.button_frame.pack(ipadx=10, ipady=10)
+        self.upper_button_frame = Frame(self.parent)
+        self.upper_button_frame.pack(ipadx=5, ipady=0)
 
         self.order_pizza_button = Button(
-            self.button_frame, text="Order Pizza", font=("Calibri", 18), command=self)
-        self.order_pizza_button.pack(side=LEFT, padx=10, pady=10)
+            self.upper_button_frame, text="New Pizza Order", cursor="hand2", font=("Calibri", 18), command=self)
+        self.order_pizza_button.pack(side=LEFT, padx=0, pady=0)
 
         self.track_order_button = Button(
-            self.button_frame, text="Track Order", font=("Calibri", 18), command=self)
-        self.track_order_button.pack(side=LEFT, padx=10, pady=10)
+            self.upper_button_frame, text="Cancelled Order", cursor="hand2", font=("Calibri", 18), command=self)
+        self.track_order_button.pack(side=LEFT, padx=0, pady=0)
 
-        self.back_button = Button(
-            self.button_frame, text="Cancel Order", font=("Calibri", 18), command=self)
-        self.back_button.pack(side=LEFT, padx=10, pady=10)
+        self.lower_button_frame = Frame(self.parent)
+        self.lower_button_frame.pack(ipadx=5, ipady=0)
+
+        self.served_order_button = Button(self.lower_button_frame, text="Served Order", font=(
+            "Calibri", 18), command=self, cursor="hand2")
+        self.served_order_button.pack(side=LEFT, padx=0, pady=0)
+
+        self.pending_order_button = Button(
+            self.lower_button_frame, text="Pending Order", cursor="hand2", font=("Calibri", 18), command=self)
+        self.pending_order_button.pack(side=LEFT, padx=0, pady=0)
 
 
 if __name__ == "__main__":

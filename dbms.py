@@ -1,4 +1,5 @@
 import imp
+from msilib.schema import tables
 import pymysql
 from dotenv import load_dotenv
 import os
@@ -14,6 +15,8 @@ class Db:
         self._database = os.getenv("DB_DATABASE")
         self._connection = pymysql.connect(
             host=self._host, port=self._port, user=self._user, password=self._password, database=self._database)
+
+        self._table = "Order"
 
     # insert data into database
     def insert(self, table, data):
@@ -33,11 +36,11 @@ class Db:
 
     # delete data from database
     def delete(self, table, where):
-        with self.connection.cursor() as cursor:
+        with self._connection.cursor() as cursor:
             # Create a new record
             sql = "DELETE FROM " + table + " WHERE " + where
             cursor.execute(sql)
-        self.connection.commit()
+        self._connection.commit()
 
     # select data from database
     def select(self, table, where):
@@ -47,3 +50,11 @@ class Db:
             cursor.execute(sql)
             result = cursor.fetchall()
         return result
+
+    def get_next_order_id(self):
+        with self._connection.cursor() as cursor:
+            # Create a new record
+            sql = "SELECT * FROM " + self._table + " ORDER BY Id DESC LIMIT 1"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        return len(result) + 1
