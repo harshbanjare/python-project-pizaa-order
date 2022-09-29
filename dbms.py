@@ -1,5 +1,3 @@
-import imp
-from msilib.schema import tables
 import pymysql
 from dotenv import load_dotenv
 import os
@@ -16,20 +14,19 @@ class Db:
         self._connection = pymysql.connect(
             host=self._host, port=self._port, user=self._user, password=self._password, database=self._database)
 
-        self._table = "Order"
+        self._table = "Orders"
 
     # insert data into database
     def insert(self, table, data):
         with self._connection.cursor() as cursor:
-            # Create a new record
             sql = "INSERT INTO " + table + " VALUES " + data
+            print(sql)
             cursor.execute(sql)
         self._connection.commit()
 
     # update data in database
     def update(self, table, data, where):
         with self._connection.cursor() as cursor:
-            # Create a new record
             sql = "UPDATE " + table + " SET " + data + " WHERE " + where
             cursor.execute(sql)
         self._connection.commit()
@@ -37,7 +34,6 @@ class Db:
     # delete data from database
     def delete(self, table, where):
         with self._connection.cursor() as cursor:
-            # Create a new record
             sql = "DELETE FROM " + table + " WHERE " + where
             cursor.execute(sql)
         self._connection.commit()
@@ -45,16 +41,38 @@ class Db:
     # select data from database
     def select(self, table, where):
         with self._connection.cursor() as cursor:
-            # Create a new record
-            sql = "SELECT * FROM " + table + " WHERE " + where
+            sql = "SELECT * FROM " + table + " WHERE " + where + ";"
+            print(sql)
             cursor.execute(sql)
             result = cursor.fetchall()
         return result
 
-    def get_next_order_id(self):
+    def select_all(self, table):
         with self._connection.cursor() as cursor:
-            # Create a new record
-            sql = "SELECT * FROM " + self._table + " ORDER BY Id DESC LIMIT 1"
+            sql = "SELECT * FROM " + table + ";"
+            print(sql)
             cursor.execute(sql)
             result = cursor.fetchall()
-        return len(result) + 1
+        return result
+
+
+class Orders(Db):
+    def __init__(self):
+        super().__init__()
+
+    def get_next_order_id(self):
+        with self._connection.cursor() as cursor:
+            sql = "SELECT MAX(ID) FROM " + self._table + ";"
+            cursor.execute(sql)
+            result = cursor.fetchone()
+        return result[0] + 1
+
+    def create_order(self, id, name, email, phone, address, type):
+        data = "('" + str(id) + "', '" + name + "', '" + address + "', '" + \
+            type + "', '" + phone + "', '" + email + "', 'PENDING')"
+        try:
+            print(data)
+            self.insert(self._table, data)
+            return True
+        except:
+            return False

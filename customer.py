@@ -1,5 +1,6 @@
 from tkinter import ttk
 from tkinter import *
+from customer_order_form import CustomerOrderForm
 
 
 class Customer(Frame):
@@ -21,16 +22,21 @@ class Customer(Frame):
         self.button_frame.pack(ipadx=10, ipady=10)
 
         self.order_pizza_button = Button(
-            self.button_frame, text="Order Pizza", cursor="hand2", font=("Calibri", 18), command=self)
+            self.button_frame, text="Order Pizza", cursor="hand2", font=("Calibri", 18), command=self.orderForm)
         self.order_pizza_button.pack(side=LEFT, padx=10, pady=10)
 
         self.track_order_button = Button(
             self.button_frame, text="Track Order", cursor="hand2", font=("Calibri", 18), command=self)
         self.track_order_button.pack(side=LEFT, padx=10, pady=10)
 
-        self.back_button = Button(
+        self.cancel_order_button = Button(
             self.button_frame, text="Cancel Order", cursor="hand2", font=("Calibri", 18), command=self)
-        self.back_button.pack(side=LEFT, padx=10, pady=10)
+        self.cancel_order_button.pack(side=LEFT, padx=10, pady=10)
+
+    def orderForm(self):
+        root = Tk()
+        CustomerOrderForm(root).pack(side="top", fill="both", expand=True)
+        root.mainloop()
 
 
 if __name__ == "__main__":
