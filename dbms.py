@@ -71,8 +71,16 @@ class Orders(Db):
         data = "('" + str(id) + "', '" + name + "', '" + address + "', '" + \
             type + "', '" + phone + "', '" + email + "', 'PENDING')"
         try:
-            print(data)
             self.insert(self._table, data)
+            return True
+        except:
+            return False
+
+    def cancel_order(self, id):
+        where = "ID = '" + id + "'"
+        data = "Status = 'CANCELLED'"
+        try:
+            self.update(self._table, data, where)
             return True
         except:
             return False

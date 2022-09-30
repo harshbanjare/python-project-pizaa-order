@@ -1,6 +1,7 @@
 from tkinter import ttk
 from tkinter import *
 from customer_order_form import CustomerOrderForm
+from customer_cancel_form import OrderCancelForm
 
 
 class Customer(Frame):
@@ -36,6 +37,11 @@ class Customer(Frame):
     def orderForm(self):
         root = Tk()
         CustomerOrderForm(root).pack(side="top", fill="both", expand=True)
+        root.mainloop()
+
+    def cancelForm(self):
+        root = Tk()
+        OrderCancelForm(root).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
 
