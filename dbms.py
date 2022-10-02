@@ -65,6 +65,8 @@ class Orders(Db):
             sql = "SELECT MAX(ID) FROM " + self._table + ";"
             cursor.execute(sql)
             result = cursor.fetchone()
+            if result[0] is None:
+                return 1
         return result[0] + 1
 
     def create_order(self, id, name, email, phone, address, type):

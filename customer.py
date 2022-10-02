@@ -3,6 +3,7 @@ from tkinter import *
 from customer_order_form import CustomerOrderForm
 from customer_cancel_form import OrderCancelForm
 from customer_receive_order_form import ReceiveOrderForm
+from customer_track_order import TrackOrder
 
 
 class Customer(Frame):
@@ -28,7 +29,7 @@ class Customer(Frame):
         self.order_pizza_button.pack(side=LEFT, padx=10, pady=10)
 
         self.track_order_button = Button(
-            self.button_frame, text="Track Order", cursor="hand2", font=("Calibri", 18), command=self)
+            self.button_frame, text="Track Order", cursor="hand2", font=("Calibri", 18), command=self.trackOrder)
         self.track_order_button.pack(side=LEFT, padx=10, pady=10)
 
         self.cancel_order_button = Button(
@@ -52,6 +53,11 @@ class Customer(Frame):
     def receiveOrder(self):
         root = Toplevel(self.parent)
         ReceiveOrderForm(root).pack(side="top", fill="both", expand=True)
+        root.mainloop()
+
+    def trackOrder(self):
+        root = Toplevel(self.parent)
+        TrackOrder(root).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
 
