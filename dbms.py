@@ -117,3 +117,18 @@ class Orders(Db):
             cursor.execute(sql)
             result = cursor.fetchall()
         return result
+
+    def get_served_orders(self):
+        with self._connection.cursor() as cursor:
+            sql = "SELECT * FROM " + self._table + \
+                " WHERE Status = 'IN TRANSIT' OR Status = 'DELIVERED';"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        return result
+
+    def get_cancelled_orders(self):
+        with self._connection.cursor() as cursor:
+            sql = "SELECT * FROM " + self._table + " WHERE Status = 'CANCELLED';"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        return result

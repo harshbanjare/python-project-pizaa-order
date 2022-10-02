@@ -1,6 +1,8 @@
 from tkinter import ttk
 from tkinter import *
 from merchant_new_orders import NewOrders
+from merchant_cancelled_order import CancelledOrders
+from merchant_served_orders import ServedOrders
 
 
 class Merchant(Frame):
@@ -37,6 +39,12 @@ class Merchant(Frame):
         root = Toplevel(self.parent)
         NewOrders(root).pack(side="top", fill="both", expand=True)
         root.mainloop()
+
+    def cancelled_orders(self):
+        pass
+
+    def served_orders(self):
+        pass
 
 
 if __name__ == "__main__":
