@@ -76,11 +76,30 @@ class Orders(Db):
         except:
             return False
 
-    def cancel_order(self, id):
-        where = "ID = '" + id + "'"
-        data = "Status = 'CANCELLED'"
-        try:
-            self.update(self._table, data, where)
-            return True
-        except:
-            return False
+    def update_status(self, id, status):
+        with self._connection.cursor() as cursor:
+            check_order_exists_query = "SELECT * FROM " + \
+                self._table + " WHERE ID = '" + str(id) + "';"
+            cursor.execute(check_order_exists_query)
+            result = cursor.fetchone()
+            if result is None:
+                return False
+            else:
+                data = "Status = '" + status + "'"
+                where = "ID = '" + str(id) + "'"
+                try:
+                    self.update(self._table, data, where)
+                    return True
+                except:
+                    return False
+
+    def get_order_status(self, id):
+        with self._connection.cursor() as cursor:
+            check_order_exists_query = "SELECT * FROM " + \
+                self._table + " WHERE ID = '" + str(id) + "';"
+            cursor.execute(check_order_exists_query)
+            result = cursor.fetchone()
+            if result is None:
+                return False
+            else:
+                return result[6]

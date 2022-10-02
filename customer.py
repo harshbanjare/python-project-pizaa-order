@@ -31,8 +31,12 @@ class Customer(Frame):
         self.track_order_button.pack(side=LEFT, padx=10, pady=10)
 
         self.cancel_order_button = Button(
-            self.button_frame, text="Cancel Order", cursor="hand2", font=("Calibri", 18), command=self)
+            self.button_frame, text="Cancel Order", cursor="hand2", font=("Calibri", 18), command=self.cancelForm)
         self.cancel_order_button.pack(side=LEFT, padx=10, pady=10)
+
+        self.receive_order_button = Button(
+            self.button_frame, text="Receive Order", cursor="hand2", font=("Calibri", 18), command=self)
+        self.receive_order_button.pack(side=LEFT, padx=10, pady=10)
 
     def orderForm(self):
         root = Tk()
