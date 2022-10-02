@@ -3,7 +3,7 @@ from tkinter import ttk
 from dbms import Orders
 
 
-class ServedOrder(Frame):
+class ServedOrders(Frame):
 
     def __init__(self, parent, *args, **kwargs):
 
@@ -53,5 +53,5 @@ class ServedOrder(Frame):
 
 if __name__ == "__main__":
     root = Tk()
-    ServedOrder(root)
+    ServedOrders(root)
     root.mainloop()

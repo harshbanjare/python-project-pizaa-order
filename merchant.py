@@ -1,7 +1,7 @@
 from tkinter import ttk
 from tkinter import *
 from merchant_new_orders import NewOrders
-from merchant_cancelled_order import CancelledOrders
+from merchant_cancelled_orders import CancelledOrders
 from merchant_served_orders import ServedOrders
 
 
@@ -28,11 +28,11 @@ class Merchant(Frame):
         self.order_pizza_button.pack(side=LEFT, padx=0, pady=0)
 
         self.track_order_button = Button(
-            self.upper_button_frame, text="Cancelled Order", cursor="hand2", font=("Calibri", 18), command=self)
+            self.upper_button_frame, text="Cancelled Order", cursor="hand2", font=("Calibri", 18), command=self.cancelled_orders)
         self.track_order_button.pack(side=LEFT, padx=0, pady=0)
 
         self.served_order_button = Button(self.upper_button_frame, text="Served Order", font=(
-            "Calibri", 18), command=self, cursor="hand2")
+            "Calibri", 18), command=self.served_orders, cursor="hand2")
         self.served_order_button.pack(side=LEFT, padx=0, pady=0)
 
     def new_orders(self):
@@ -41,10 +41,14 @@ class Merchant(Frame):
         root.mainloop()
 
     def cancelled_orders(self):
-        pass
+        root = Toplevel(self.parent)
+        CancelledOrders(root).pack(side="top", fill="both", expand=True)
+        root.mainloop()
 
     def served_orders(self):
-        pass
+        root = Toplevel(self.parent)
+        ServedOrders(root).pack(side="top", fill="both", expand=True)
+        root.mainloop()
 
 
 if __name__ == "__main__":
