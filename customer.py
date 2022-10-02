@@ -2,6 +2,7 @@ from tkinter import ttk
 from tkinter import *
 from customer_order_form import CustomerOrderForm
 from customer_cancel_form import OrderCancelForm
+from customer_receive_order_form import ReceiveOrderForm
 
 
 class Customer(Frame):
@@ -35,17 +36,22 @@ class Customer(Frame):
         self.cancel_order_button.pack(side=LEFT, padx=10, pady=10)
 
         self.receive_order_button = Button(
-            self.button_frame, text="Receive Order", cursor="hand2", font=("Calibri", 18), command=self)
+            self.button_frame, text="Receive Order", cursor="hand2", font=("Calibri", 18), command=self.receiveOrder)
         self.receive_order_button.pack(side=LEFT, padx=10, pady=10)
 
     def orderForm(self):
-        root = Tk()
+        root = Toplevel(self.parent)
         CustomerOrderForm(root).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
     def cancelForm(self):
-        root = Tk()
+        root = Toplevel(self.parent)
         OrderCancelForm(root).pack(side="top", fill="both", expand=True)
+        root.mainloop()
+
+    def receiveOrder(self):
+        root = Toplevel(self.parent)
+        ReceiveOrderForm(root).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
 

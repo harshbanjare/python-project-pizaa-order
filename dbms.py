@@ -70,10 +70,17 @@ class Orders(Db):
     def create_order(self, id, name, email, phone, address, type):
         data = "('" + str(id) + "', '" + name + "', '" + address + "', '" + \
             type + "', '" + phone + "', '" + email + "', 'PENDING')"
+
+        print(data)
+
+        if not (name and email and phone and address and type):
+            return False
+
         try:
             self.insert(self._table, data)
             return True
-        except:
+        except Exception as e:
+            print(e)
             return False
 
     def update_status(self, id, status):
@@ -103,3 +110,10 @@ class Orders(Db):
                 return False
             else:
                 return result[6]
+
+    def get_pending_orders(self):
+        with self._connection.cursor() as cursor:
+            sql = "SELECT * FROM " + self._table + " WHERE Status = 'PENDING';"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        return result

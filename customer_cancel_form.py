@@ -44,7 +44,7 @@ class OrderCancelForm(Frame):
 
     def cancel_order(self):
         order_id = self.id_var.get()
-        if self._order_table.get_order_status(order_id) == "PENDING":
+        if self._order_table.get_order_status(order_id) == "PENDING" or self._order_table.get_order_status(order_id) == "IN TRANSIT":
             if self._order_table.cancel_order(order_id):
                 self.result_label.config(text="Order Cancelled")
                 self.result_label.config(fg="green")

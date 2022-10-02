@@ -44,7 +44,7 @@ class ReceiveOrderForm(Frame):
 
     def receive_order(self):
         order_id = self.id_var.get()
-        if self._order_table.get_order_status(order_id) == "PENDING":
+        if self._order_table.get_order_status(order_id) == "IN TRANSIT":
             if self._order_table.update_status(order_id, "DELIVERED"):
                 self.result_label.config(text="Order Received")
                 self.result_label.config(fg="green")

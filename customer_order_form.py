@@ -88,8 +88,6 @@ class CustomerOrderForm(Frame):
             int(self.id_var), self.name_var.get(), self.email_var.get(), self.phone_var.get(), self.address_var.get(), self.pizza_var.get())
 
         if order_success:
-            self.id_var = self._order_table.get_next_order_id()
-            self.id_value.config(text=self.id_var)
             self.name_entry.config(state="disabled")
             self.phone_entry.config(state="disabled")
             self.address_entry.config(state="disabled")

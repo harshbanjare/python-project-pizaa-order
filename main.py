@@ -30,12 +30,12 @@ class MainApplication(Frame):
         self.merchant_button.pack(side=LEFT, padx=10, pady=10)
 
     def customer(self):
-        root = Tk()
+        root = Toplevel(self.parent)
         Customer(root).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
     def merchant(self):
-        root = Tk()
+        root = Toplevel(self.parent)
         Merchant(root).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
