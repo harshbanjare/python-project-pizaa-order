@@ -1,6 +1,7 @@
 from tkinter import ttk
 from tkinter import *
-from dbms import Orders
+# from dbms import Orders
+from mongo_db import Orders
 
 
 class CustomerOrderForm(Frame):
