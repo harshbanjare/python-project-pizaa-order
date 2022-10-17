@@ -3,17 +3,6 @@ from dotenv import load_dotenv
 import os
 import pprint
 import certifi
-# Connect to the MongoDB, change the connection string per your MongoDB environment
-load_dotenv()
-
-# user = os.getenv("MONGO_USER")
-# password = os.getenv("MONGO_PASSWORD")
-# client = pymongo.MongoClient(
-#     f"mongodb+srv://{user}:{password}@instance.hmqd8.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=certifi.where())
-# db = client['pizza-delivery-system']
-# collections = db['orders']
-# print(collections.find_one())
-# pprint.pprint(collections.find_one())
 
 
 class DB:
@@ -36,7 +25,7 @@ class DB:
         self._collections.delete_one(where)
 
     def select(self, where):
-        return self._collections.find_one(where)
+        return self._collections.find(where)
 
     def select_all(self):
         return self._collections.find({})
@@ -74,7 +63,7 @@ class Orders(DB):
 
     def update_status(self, id, status):
         data = {"$set": {"status": status}}
-        where = {"id": id}
+        where = {"id": int(id)}
         try:
             self.update(data, where)
             return True
@@ -83,11 +72,53 @@ class Orders(DB):
             return False
 
     def get_order_status(self, id):
-        status = self.select({"id": int(id)})
+        status = self._collections.find_one({"id": int(id)})
         if status:
             return status['status']
         else:
             return False
+
+    def get_pending_orders(self):
+        orders = self.select({"status": "PENDING"})
+        orders_tuple = []
+        for order in orders:
+            l = list(order.values())
+            l.pop(0)
+            orders_tuple.append(tuple(l))
+
+        if orders:
+            return tuple(orders_tuple)
+        else:
+            return False
+
+    def get_served_orders(self):
+        orders = self.select({"status": "IN TRANSIT"})
+        orders_tuple = []
+        for order in orders:
+            l = list(order.values())
+            l.pop(0)
+            orders_tuple.append(tuple(l))
+
+        if orders:
+            return tuple(orders_tuple)
+        else:
+            return False
+
+    def get_cancelled_orders(self):
+        orders = self.select({"status": "CANCELLED"})
+        orders_tuple = []
+        for order in orders:
+            l = list(order.values())
+            l.pop(0)
+            orders_tuple.append(tuple(l))
+
+        if orders:
+            return tuple(orders_tuple)
+        else:
+            return False
+
+    def cancel_order(self, id):
+        return self.update_status(id, "CANCELLED")
 
 
 if __name__ == "__main__":
@@ -96,4 +127,5 @@ if __name__ == "__main__":
     # print(orders.select({"id": 1}))
     # print(orders.get_order_status(1))
     # print(orders.get_next_order_id())
-    pprint.pprint([i for i in orders.select_all()])
+    pprint.pprint(orders.get_pending_orders())
+    # pprint.pprint([i for i in orders.select_all()])
