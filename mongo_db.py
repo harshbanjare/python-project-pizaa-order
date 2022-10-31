@@ -92,7 +92,8 @@ class Orders(DB):
             return False
 
     def get_served_orders(self):
-        orders = self.select({"status": "IN TRANSIT"})
+        orders = self.select(
+            {"$or": [{"status": "SERVED"}, {"status": "DELIVERED"}]})
         orders_tuple = []
         for order in orders:
             l = list(order.values())
@@ -123,9 +124,4 @@ class Orders(DB):
 
 if __name__ == "__main__":
     orders = Orders()
-    # print(orders.update_status(1, "DELIVERED"))
-    # print(orders.select({"id": 1}))
-    # print(orders.get_order_status(1))
-    # print(orders.get_next_order_id())
     pprint.pprint(orders.get_pending_orders())
-    # pprint.pprint([i for i in orders.select_all()])

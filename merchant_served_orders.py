@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk
-# from dbms import Orders
 from mongo_db import Orders
 
 
